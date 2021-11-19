@@ -19,7 +19,7 @@ export class GroupController {
       const count = GroupsModel.countGroups(body);
       responseBody = new HTTPSuccessResponse({ list: await allGroups, count: await count });
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       responseBody = new HTTPErrorResponse([{ code: error.code, message: error.message }]);
 
@@ -38,7 +38,7 @@ export class GroupController {
 
       responseBody = new HTTPSuccessResponse(group);
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       responseBody = new HTTPErrorResponse([{ code: error.code, message: error.message }]);
     }
@@ -58,7 +58,7 @@ export class GroupController {
       await GroupsModel.softDelete(body._id);
       responseBody = new HTTPSuccessResponse({});
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       responseBody = new HTTPErrorResponse([{ code: error.code, message: error.message }]);
     }
@@ -79,7 +79,7 @@ export class GroupController {
       let newGroup = await GroupsModel.addGroup(group);
       responseBody = new HTTPSuccessResponse(newGroup);
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       responseBody = new HTTPErrorResponse([{ code: error.code, message: error.message }]);
     }
@@ -101,7 +101,7 @@ export class GroupController {
 
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(JSON.stringify(error));
       responseBody = new HTTPErrorResponse([{ code: error.code, message: error.message }]);
     }

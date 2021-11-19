@@ -1,4 +1,4 @@
-/* 
+/*
     Load .env File
 */
 import dotenv from 'dotenv';

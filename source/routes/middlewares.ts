@@ -64,7 +64,7 @@ export async function httpInterceptor(
         res.json(new HTTPAuthErrorResponse());
         return;
       }
-    } catch (error) {
+    } catch (error: any) {
       res.json(new HTTPAuthErrorResponse());
       return;
     }

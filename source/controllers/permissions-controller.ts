@@ -15,7 +15,7 @@ export class PermissionsController {
       const allPermissions = await PermissionsModel.getAllPermissions();
       responseBody = new HTTPSuccessResponse({ list: allPermissions });
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       responseBody = new HTTPErrorResponse([{ code: 500, message: error.message }]);
     }

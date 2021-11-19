@@ -10,7 +10,7 @@ services:
       - 27017:27017
     volumes:
       - ./DB:/DB
-      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - .:/docker-entrypoint-initdb.d
     
 
   node_app:

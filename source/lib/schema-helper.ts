@@ -8,7 +8,7 @@ export function getListOfErrors(schemaValidator: Joi.ValidationResult<any>) {
     errors = schemaValidator.error.details.map(detail => {
       return { code: 400, message: detail.message };
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
   }
 
