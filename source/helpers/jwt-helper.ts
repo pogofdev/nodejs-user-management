@@ -4,11 +4,13 @@ import { TokenPayload } from '../dto/token-payload';
 
 export class JwtHelper {
   private static _jwtHelper = new JwtHelper();
-  private JWT_ACCESS_SECRET_KEY =  process.env.JWT_ACCESS_SECRET_KEY; 
-  private JWT_REFRESH_SECRET_KEY =  process.env.JWT_REFRESH_SECRET_KEY; 
-  private ACCESS_TOKEN_EXP_TIME =  process.env.ACCESS_TOKEN_EXP_TIME; 
-  private REFRESH_TOKEN_EXP_TIME =  process.env.REFRESH_TOKEN_EXP_TIME; 
-  private JTW_ISSUER =  process.env.JTW_ISSUER; 
+  private JWT_ACCESS_SECRET_KEY =  process.env.JWT_ACCESS_SECRET_KEY;
+  private JWT_REFRESH_SECRET_KEY =  process.env.JWT_REFRESH_SECRET_KEY;
+  private ACCESS_TOKEN_EXP_TIME =  process.env.ACCESS_TOKEN_EXP_TIME;
+  private REFRESH_TOKEN_EXP_TIME =  process.env.REFRESH_TOKEN_EXP_TIME;
+  private PUBLIC_KEY =  process.env.PUBLIC_KEY;
+  private PRIVATE_KEY =  process.env.PRIVATE_KEY;
+  private JTW_ISSUER =  process.env.JTW_ISSUER;
 
   private constructor() {}
 
@@ -17,15 +19,17 @@ export class JwtHelper {
   }
 
   getAccessToken(user: TokenPayload): Promise<string> {
+    console.log(this.PUBLIC_KEY, this.PRIVATE_KEY);
     return new Promise((resolve, reject) => {
       const options = {
         expiresIn: this.ACCESS_TOKEN_EXP_TIME,
         issuer: this.JTW_ISSUER,
         audience: user.username,
+        algorithm: 'RS256',
       };
       return sign(
         classToPlain(user),
-        String(this.JWT_ACCESS_SECRET_KEY),
+        String(this.PRIVATE_KEY),
         options,
         (err, token) => {
           if (err) {
@@ -47,7 +51,7 @@ export class JwtHelper {
     return new Promise((resolve, reject) => {
       verify(
         token,
-        String(this.JWT_ACCESS_SECRET_KEY),
+        String(this.PUBLIC_KEY),
         (err, payload: any) => {
           if (err) {
             console.log(err.message);
@@ -88,7 +92,7 @@ export class JwtHelper {
     return new Promise((resolve, reject) => {
       verify(
         token,
-        String(this.JWT_REFRESH_SECRET_KEY),
+        String(this.PUBLIC_KEY),
         (err, payload: any) => {
           if (err) {
             console.log(err.message);
