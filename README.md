@@ -154,3 +154,4 @@ License
 
 MIT
 
+#https://jwt-auth.readthedocs.io/en/develop/lumen-installation/
